@@ -13,6 +13,7 @@ import com.example.demospringsecurity.model.User;
 
 import com.example.demospringsecurity.repository.RoleRepository;
 import com.example.demospringsecurity.repository.UserRepository;
+import com.example.demospringsecurity.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,7 +70,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-        findById(id);
+
+        User user = findById(id);
+        String email = SecurityUtil.getCurrentUserLogin().orElse("");
+
+
+        if(user.getEmail().equals(email)) {
+            throw new RuntimeException("Không thể xóa user hiện tại của bạn");
+        }
+        if(user.getRole().getName().equals("ROLE_ADMIN")) {
+            throw new RuntimeException("Không thể xóa ADMIN");
+        }
         userRepository.deleteById(id);
     }
 

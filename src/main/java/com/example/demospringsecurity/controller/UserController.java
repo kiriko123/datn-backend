@@ -1,10 +1,12 @@
 package com.example.demospringsecurity.controller;
 
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
+import com.example.demospringsecurity.dto.response.RestResponse;
 import com.example.demospringsecurity.model.User;
 import com.example.demospringsecurity.service.UserService;
 import com.turkraft.springfilter.boot.Filter;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,15 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getAllUsers(@Filter Specification<User> specification, Pageable pageable) {
         return ResponseEntity.ok().body(userService.findAll(specification, pageable));
+    }
+    @DeleteMapping("/{id}")
+    public RestResponse<?> deleteUser(@Min(1)@PathVariable Long id) {
+        log.info("deleteUser: {}", id);
+        userService.delete(id);
+        return RestResponse.builder()
+                .statusCode(204)
+                .message("User deleted")
+                .build();
     }
 
 }

@@ -1,10 +1,12 @@
 package com.example.demospringsecurity.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class RestResponse<T> {
     private int statusCode;
     private String error;

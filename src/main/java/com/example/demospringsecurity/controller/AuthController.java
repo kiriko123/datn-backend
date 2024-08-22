@@ -46,12 +46,6 @@ public class AuthController {
 
     private final UserService userService;
 
-    private final UserRepository userRepository;
-
-    private final PasswordEncoder passwordEncoder;
-
-    private final RoleRepository roleRepository;
-
     private final SignupService signupService;
 
     @Value("${khang.jwt.refresh-token-validity-in-seconds}")
