@@ -1,6 +1,7 @@
 package com.example.demospringsecurity.service.impl;
 
 import com.example.demospringsecurity.dto.request.user.UserCreateRequestDTO;
+import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.ResultPaginationResponse;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
@@ -32,24 +33,20 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
 
     @Override
-    public UserResponse save(UserCreateRequestDTO userRequestDTO) {
+    public UserResponse save(UserRegisterRequestDTO userRegisterRequestDTO) {
 
-        if (userRepository.existsByEmail(userRequestDTO.getEmail())) {
+        if (userRepository.existsByEmail(userRegisterRequestDTO.getEmail())) {
             throw new InvalidDataException("Email already exists");
         }
 
-
-        Role role = new Role();
-        if (userRequestDTO.getRole() != null) {
-            role = roleRepository.findById(userRequestDTO.getRole().getId()).orElse(null);
-        }
-
-        User user = userRepository.save(User.builder()
-                .name(userRequestDTO.getName())
-                .password(passwordEncoder.encode(userRequestDTO.getPassword()))
-                .email(userRequestDTO.getEmail())
-                .role(role)
-                .build());
+        User user = userRepository.save(
+                User.builder()
+                        .name(userRegisterRequestDTO.getName())
+                        .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
+                        .email(userRegisterRequestDTO.getEmail())
+                        .role(roleRepository.findById(2L).orElse(null))
+                        .enabled(true)
+                        .build());
 
         return UserResponse.fromUserToUserResponse(user);
     }
@@ -75,10 +72,10 @@ public class UserServiceImpl implements UserService {
         String email = SecurityUtil.getCurrentUserLogin().orElse("");
 
 
-        if(user.getEmail().equals(email)) {
+        if (user.getEmail().equals(email)) {
             throw new RuntimeException("Không thể xóa user hiện tại của bạn");
         }
-        if(user.getRole().getName().equals("ROLE_ADMIN")) {
+        if (user.getRole().getName().equals("ROLE_ADMIN")) {
             throw new RuntimeException("Không thể xóa ADMIN");
         }
         userRepository.deleteById(id);

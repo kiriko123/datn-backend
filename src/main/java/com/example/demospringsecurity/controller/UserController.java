@@ -1,5 +1,7 @@
 package com.example.demospringsecurity.controller;
 
+import com.example.demospringsecurity.dto.request.user.UserCreateRequestDTO;
+import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.RestResponse;
 import com.example.demospringsecurity.model.User;
@@ -41,6 +43,11 @@ public class UserController {
                 .statusCode(204)
                 .message("User deleted")
                 .build();
+    }
+    @PostMapping
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterRequestDTO userRegisterRequestDTO) {
+        log.info("createUser: {}", userRegisterRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRegisterRequestDTO));
     }
 
 }

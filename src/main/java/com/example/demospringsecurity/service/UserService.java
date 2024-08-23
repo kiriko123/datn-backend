@@ -1,6 +1,7 @@
 package com.example.demospringsecurity.service;
 
 import com.example.demospringsecurity.dto.request.user.UserCreateRequestDTO;
+import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.ResultPaginationResponse;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface UserService {
-    UserResponse save(UserCreateRequestDTO userCreateRequestDTO);
+    UserResponse save(UserRegisterRequestDTO userRegisterRequestDTO);
     User findByUserName(String username);
     UserResponse update(UserUpdateRequestDTO userUpdateRequestDTO);
     void delete(Long id);
