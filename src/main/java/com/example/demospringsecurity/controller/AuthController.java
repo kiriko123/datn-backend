@@ -74,7 +74,7 @@ public class AuthController {
 
             //check xem co active tai khoan chua
             if (!currentUser.isEnabled()) {
-                throw new RuntimeException("User is not enabled");
+                throw new RuntimeException("User is not enabled, please find our mail in your mail: " + loginRequestDTO.getUsername() +" and click");
             }
 
             LoginResponse.UserLogin userLogin = new
