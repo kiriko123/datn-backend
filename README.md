@@ -80,9 +80,13 @@ tên_repo/
 Hướng dẫn cách đóng góp vào dự án nếu bạn mở rộng dự án cho cộng đồng:
 
 1: Fork repository
+
 2: Tạo nhánh (git checkout -b feature/ten-tinh-nang)
+
 3: Commit thay đổi của bạn (git commit -m 'Thêm tính năng ABC')
+
 4: Push nhánh (git push origin feature/ten-tinh-nang)
+
 5: Mở Pull Request
 
 ## Giấy Phép
