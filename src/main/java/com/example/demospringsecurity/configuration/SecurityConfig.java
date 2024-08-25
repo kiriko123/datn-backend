@@ -72,6 +72,8 @@ public class SecurityConfig {
                         authz -> authz
                                 .requestMatchers(whiteList).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/user").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/v1/user/**").hasRole("ADMIN")
+
                                 .requestMatchers("/admin/**").hasRole("ADMIN")  // Admin-only endpoints
                                 .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")  // Accessible to both roles
                                 .anyRequest().authenticated()

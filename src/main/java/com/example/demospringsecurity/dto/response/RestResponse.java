@@ -1,5 +1,6 @@
 package com.example.demospringsecurity.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 @Getter
@@ -7,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL) //null -> bỏ
 public class RestResponse<T> {
     private int statusCode;
     private String error;

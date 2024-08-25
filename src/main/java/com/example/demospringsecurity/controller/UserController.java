@@ -1,6 +1,5 @@
 package com.example.demospringsecurity.controller;
 
-import com.example.demospringsecurity.dto.request.user.UserCreateRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.RestResponse;
@@ -17,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,5 +50,14 @@ public class UserController {
         log.info("createUser: {}", userRegisterRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRegisterRequestDTO));
     }
-
+    @PostMapping("/bulk-create")
+    public RestResponse<?> createUsers(@RequestBody List<UserRegisterRequestDTO> userRegisterRequestDTOS) {
+        log.info("createUsers: {}", userRegisterRequestDTOS);
+        String res = userService.bulkCreateUser(userRegisterRequestDTOS);
+        return RestResponse.builder()
+                .statusCode(201)
+                .message("Users created")
+                .data(res)
+                .build();
+    }
 }

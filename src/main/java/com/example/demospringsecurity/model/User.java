@@ -3,6 +3,7 @@ package com.example.demospringsecurity.model;
 import com.example.demospringsecurity.util.SecurityUtil;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -14,28 +15,29 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String name;
-    private String password;
-    private String email;
+    long id;
+    String name;
+    String password;
+    String email;
 
     @Column(columnDefinition = "MEDIUMTEXT")
-    private String refreshToken;
+    String refreshToken;
 
     @Column(name = "verification_code")
-    private String verificationCode;
+    String verificationCode;
     @Column(name = "verification_expiration")
-    private LocalDateTime verificationCodeExpiresAt;
-    private boolean enabled;
+    LocalDateTime verificationCodeExpiresAt;
+    boolean enabled;
 
 
-    private Instant createdAt;
-    private Instant updatedAt;
-    private String createdBy;
-    private String updatedBy;
+    Instant createdAt;
+    Instant updatedAt;
+    String createdBy;
+    String updatedBy;
 
     @PrePersist
     public void handleBeforeCreate() {
@@ -51,5 +53,5 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private Role role;
+    Role role;
 }

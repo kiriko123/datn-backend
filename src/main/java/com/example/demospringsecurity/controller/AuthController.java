@@ -2,13 +2,9 @@ package com.example.demospringsecurity.controller;
 
 import com.example.demospringsecurity.dto.request.user.LoginRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
-import com.example.demospringsecurity.dto.request.user.VerifyUserRequestDTO;
 import com.example.demospringsecurity.dto.response.user.LoginResponse;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
-import com.example.demospringsecurity.exception.InvalidDataException;
 import com.example.demospringsecurity.model.User;
-import com.example.demospringsecurity.repository.RoleRepository;
-import com.example.demospringsecurity.repository.UserRepository;
 import com.example.demospringsecurity.service.SignupService;
 import com.example.demospringsecurity.service.UserService;
 import com.example.demospringsecurity.util.SecurityUtil;
@@ -26,13 +22,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 
 @RestController
 @RequiredArgsConstructor

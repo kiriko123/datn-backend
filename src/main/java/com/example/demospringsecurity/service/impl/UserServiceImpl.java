@@ -14,6 +14,7 @@ import com.example.demospringsecurity.model.User;
 
 import com.example.demospringsecurity.repository.RoleRepository;
 import com.example.demospringsecurity.repository.UserRepository;
+import com.example.demospringsecurity.util.EmailValidator;
 import com.example.demospringsecurity.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -121,6 +122,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByEmailAndRefreshToken(String email, String refreshToken) {
         return userRepository.findByEmailAndRefreshToken(email, refreshToken);
+    }
+
+    @Override
+    public String bulkCreateUser(List<UserRegisterRequestDTO> userRegisterRequestDTOS) {
+        int error = 0;
+        int success = 0;
+        for (UserRegisterRequestDTO userRegisterRequestDTO : userRegisterRequestDTOS) {
+            if(userRepository.existsByEmail(userRegisterRequestDTO.getEmail())) {
+                error++;
+                continue;
+            }
+            if(!EmailValidator.isValidEmail(userRegisterRequestDTO.getEmail())){
+                error++;
+                continue;
+            }
+            if(userRegisterRequestDTO.getName().isBlank() || userRegisterRequestDTO.getPassword().isBlank()){
+                error++;
+                continue;
+            }
+            User user = userRepository.save(
+                    User.builder()
+                            .name(userRegisterRequestDTO.getName())
+                            .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
+                            .email(userRegisterRequestDTO.getEmail())
+                            .role(roleRepository.findById(2L).orElse(null))
+                            .enabled(true)
+                            .build()
+            );
+            success++;
+        }
+
+        return "Success: " + success + " Error: " + error;
     }
 
     @Override

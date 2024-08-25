@@ -37,9 +37,6 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: true
-
-
-
 khang:
   jwt:
     base64-secret: ZNsuIEYem0dC12lgBymX2bCpRj8V2FYIJyVdwNjsCr+aZD4xVya98ZmdS9Yv5xwYjTzdQReKJDq5E76AxMebzQ==
