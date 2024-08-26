@@ -42,19 +42,12 @@ public class UserServiceImpl implements UserService {
             throw new InvalidDataException("Email already exists");
         }
 
-        User user = userRepository.save(
-//                User.builder()
-//                        .name(userRegisterRequestDTO.getName())
-//                        .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
-//                        .email(userRegisterRequestDTO.getEmail())
-//                        .role(roleRepository.findByName("ROLE_USER"))
-//                        .enabled(true)
-//                        .build()
-                userMapping.toUser(userRegisterRequestDTO)
+        User user = userMapping.toUser(userRegisterRequestDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(roleRepository.findByName("ROLE_USER"));
+        user.setEnabled(true);
 
-        );
-
-        return UserResponse.fromUserToUserResponse(user);
+        return UserResponse.fromUserToUserResponse(userRepository.save(user));
     }
 
     @Override
