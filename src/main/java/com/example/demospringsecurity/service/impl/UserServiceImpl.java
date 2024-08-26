@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
                         .name(userRegisterRequestDTO.getName())
                         .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
                         .email(userRegisterRequestDTO.getEmail())
-                        .role(roleRepository.findById(2L).orElse(null))
+                        .role(roleRepository.findByName("ROLE_USER"))
                         .enabled(true)
                         .build());
 
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
                             .name(userRegisterRequestDTO.getName())
                             .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
                             .email(userRegisterRequestDTO.getEmail())
-                            .role(roleRepository.findById(2L).orElse(null))
+                            .role(roleRepository.findByName("ROLE_USER"))
                             .enabled(true)
                             .build()
             );
