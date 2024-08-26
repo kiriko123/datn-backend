@@ -34,6 +34,7 @@ public class UserController {
     }
     @GetMapping
     public ResponseEntity<?> getAllUsers(@Filter Specification<User> specification, Pageable pageable) {
+        log.info("getAllUsers: {}", specification);
         return ResponseEntity.ok().body(userService.findAll(specification, pageable));
     }
     @DeleteMapping("/{id}")
