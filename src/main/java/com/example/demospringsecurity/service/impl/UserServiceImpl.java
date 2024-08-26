@@ -5,6 +5,7 @@ import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.ResultPaginationResponse;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
+import com.example.demospringsecurity.mapper.UserMapping;
 import com.example.demospringsecurity.service.UserService;
 import com.example.demospringsecurity.exception.InvalidDataException;
 import com.example.demospringsecurity.exception.ResourceNotFoundException;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final UserMapping userMapping;
 
     @Override
     public UserResponse save(UserRegisterRequestDTO userRegisterRequestDTO) {
@@ -41,13 +43,16 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userRepository.save(
-                User.builder()
-                        .name(userRegisterRequestDTO.getName())
-                        .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
-                        .email(userRegisterRequestDTO.getEmail())
-                        .role(roleRepository.findByName("ROLE_USER"))
-                        .enabled(true)
-                        .build());
+//                User.builder()
+//                        .name(userRegisterRequestDTO.getName())
+//                        .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
+//                        .email(userRegisterRequestDTO.getEmail())
+//                        .role(roleRepository.findByName("ROLE_USER"))
+//                        .enabled(true)
+//                        .build()
+                userMapping.toUser(userRegisterRequestDTO)
+
+        );
 
         return UserResponse.fromUserToUserResponse(user);
     }
