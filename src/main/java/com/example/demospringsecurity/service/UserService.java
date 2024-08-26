@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface UserService {
     UserResponse save(UserRegisterRequestDTO userRegisterRequestDTO);
-    User findByUserName(String username);
     UserResponse update(UserUpdateRequestDTO userUpdateRequestDTO);
     void delete(Long id);
     ResultPaginationResponse findAll(Specification<User> spec, Pageable pageable);

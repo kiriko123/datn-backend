@@ -51,11 +51,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserName(String username) {
-        return userRepository.findByName(username);
-    }
-
-    @Override
     public UserResponse update(UserUpdateRequestDTO userUpdateRequestDTO) {
         User user = this.findById(userUpdateRequestDTO.getId());
         user.setName(userUpdateRequestDTO.getName());
@@ -69,7 +64,6 @@ public class UserServiceImpl implements UserService {
 
         User user = findById(id);
         String email = SecurityUtil.getCurrentUserLogin().orElse("");
-
 
         if (user.getEmail().equals(email)) {
             throw new RuntimeException("Không thể xóa user hiện tại của bạn");
