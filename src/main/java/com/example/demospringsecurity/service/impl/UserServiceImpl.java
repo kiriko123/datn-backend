@@ -1,6 +1,5 @@
 package com.example.demospringsecurity.service.impl;
 
-import com.example.demospringsecurity.dto.request.user.UserCreateRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserUpdateRequestDTO;
 import com.example.demospringsecurity.dto.response.ResultPaginationResponse;
@@ -9,10 +8,7 @@ import com.example.demospringsecurity.mapper.UserMapping;
 import com.example.demospringsecurity.service.UserService;
 import com.example.demospringsecurity.exception.InvalidDataException;
 import com.example.demospringsecurity.exception.ResourceNotFoundException;
-
-import com.example.demospringsecurity.model.Role;
 import com.example.demospringsecurity.model.User;
-
 import com.example.demospringsecurity.repository.RoleRepository;
 import com.example.demospringsecurity.repository.UserRepository;
 import com.example.demospringsecurity.util.EmailValidator;
