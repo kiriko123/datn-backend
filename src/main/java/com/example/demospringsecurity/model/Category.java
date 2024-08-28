@@ -31,6 +31,7 @@ public class Category {
     Instant updatedAt;
     String createdBy;
     String updatedBy;
+    boolean active;
 
     @PrePersist
     public void handleBeforeCreate() {
