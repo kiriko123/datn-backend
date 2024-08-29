@@ -14,4 +14,5 @@ public class CategoryUpdateRequestDTO {
     @NotBlank
     String name;
     String imageUrl;
+    boolean active;
 }
