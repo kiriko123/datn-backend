@@ -1,6 +1,7 @@
 package com.example.demospringsecurity.controller;
 
 import com.example.demospringsecurity.dto.request.user.LoginRequestDTO;
+import com.example.demospringsecurity.dto.request.user.RegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.response.user.LoginResponse;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
@@ -191,9 +192,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterRequestDTO userRegisterRequestDTO) {
-        log.info("Create user : {}", userRegisterRequestDTO);
-        UserResponse userResponse = signupService.register(userRegisterRequestDTO);
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
+        log.info("Create user : {}", registerRequestDTO);
+        UserResponse userResponse = signupService.register(registerRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
     }
 

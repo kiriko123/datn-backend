@@ -1,5 +1,6 @@
 package com.example.demospringsecurity.service.impl;
 
+import com.example.demospringsecurity.dto.request.user.RegisterRequestDTO;
 import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
 import com.example.demospringsecurity.exception.InvalidDataException;
@@ -26,14 +27,17 @@ public class SignupServiceImpl implements SignupService {
     private final RoleRepository roleRepository;
 
     @Override
-    public UserResponse register(UserRegisterRequestDTO userRegisterRequestDTO) {
-        if (userRepository.existsByEmail(userRegisterRequestDTO.getEmail())) {
+    public UserResponse register(RegisterRequestDTO registerRequestDTO) {
+        if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {
             throw new InvalidDataException("Email already exists");
         }
+        if(!registerRequestDTO.getPassword().equals(registerRequestDTO.getConfirmPassword())) {
+            throw new InvalidDataException("Passwords do not match");
+        }
         User user = User.builder()
-                .email(userRegisterRequestDTO.getEmail())
-                .name(userRegisterRequestDTO.getName())
-                .password(passwordEncoder.encode(userRegisterRequestDTO.getPassword()))
+                .email(registerRequestDTO.getEmail())
+                .name(registerRequestDTO.getName())
+                .password(passwordEncoder.encode(registerRequestDTO.getPassword()))
                 .role(roleRepository.findByName("ROLE_USER"))
                 .verificationCode(this.generateVerificationCode())
                 .verificationCodeExpiresAt(LocalDateTime.now().plusMinutes(15))
