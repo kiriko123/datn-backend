@@ -1,7 +1,6 @@
 package com.example.demospringsecurity.service.impl;
 
 import com.example.demospringsecurity.dto.request.user.RegisterRequestDTO;
-import com.example.demospringsecurity.dto.request.user.UserRegisterRequestDTO;
 import com.example.demospringsecurity.dto.response.user.UserResponse;
 import com.example.demospringsecurity.exception.InvalidDataException;
 import com.example.demospringsecurity.exception.ResourceNotFoundException;
@@ -37,6 +36,7 @@ public class SignupServiceImpl implements SignupService {
         User user = User.builder()
                 .email(registerRequestDTO.getEmail())
                 .name(registerRequestDTO.getName())
+                .firstName(registerRequestDTO.getFirstName())
                 .password(passwordEncoder.encode(registerRequestDTO.getPassword()))
                 .role(roleRepository.findByName("ROLE_USER"))
                 .verificationCode(this.generateVerificationCode())

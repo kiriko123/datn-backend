@@ -17,6 +17,8 @@ public class UserResponse implements Serializable {
 
     private String name;
 
+    private String firstName;
+
     private String email;
 
     private String address;
@@ -37,6 +39,7 @@ public class UserResponse implements Serializable {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
+                .firstName(user.getFirstName())
                 .createdAt(user.getCreatedAt())
                 .updatedAt(user.getUpdatedAt())
                 .createdBy(user.getCreatedBy())

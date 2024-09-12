@@ -20,9 +20,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+    String firstName;
     String name;
+
     String password;
     String email;
+
 
     @Column(columnDefinition = "MEDIUMTEXT")
     String refreshToken;
